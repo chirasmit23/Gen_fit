@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AI Chatbot</title>
+  <title>AI Chatbot & Food Aanalyzer</title>
   <style>
     :root {
       --primary: #007bff;
@@ -133,7 +134,7 @@
 </head>
 <body>
   <div class="chat-container">
-    <div class="chat-header">🤖 AI ChatBot</div>
+    <div class="chat-header">🤖 AI ChatBot & Food Analyzer</div>
 
     <div class="chat-box" id="chatBox"></div>
 
@@ -141,6 +142,7 @@
       <label for="imageInput">📷</label>
       <input type="file" id="imageInput" accept="image/*" />
       <input type="text" id="messageInput" placeholder="Type a message..." />
+      <span id="imagePreview">No image selected</span>
       <button id="sendBtn">➤</button>
     </div>
   </div>
@@ -150,14 +152,12 @@
     const messageInput = document.getElementById("messageInput");
     const imageInput = document.getElementById("imageInput");
     const sendBtn = document.getElementById("sendBtn");
+    const imagePreview = document.getElementById("imagePreview");
 
-    function addMessage(text, sender) {
-      const msg = document.createElement("div");
-      msg.classList.add("message", sender);
-      msg.textContent = text;
-      chatBox.appendChild(msg);
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
+    imageInput.addEventListener("change", () => {
+      const file = imageInput.files[0];
+      imagePreview.textContent = file ? file.name : "No image selected";
+    });
 
     sendBtn.addEventListener("click", () => {
       const message = messageInput.value.trim();
@@ -165,23 +165,46 @@
 
       if (!message && !file) return;
 
-      if (message) addMessage(message, "user");
-      if (file) addMessage("📷 Sent an image: " + file.name, "user");
+      const userMessage = document.createElement("div");
+      userMessage.classList.add("message", "user");
+
+      if (message) {
+        const textElement = document.createElement("div");
+        textElement.textContent = message;
+        userMessage.appendChild(textElement);
+      }
+
+
+      chatBox.appendChild(userMessage);
+      chatBox.scrollTop = chatBox.scrollHeight;
 
       const formData = new FormData();
       formData.append("msg", message);
-      if (file) formData.append("image", file);
+      if (file) {
+        formData.append("image", file);
+      }
 
       fetch("http://127.0.0.1:5000/chatbot", {
         method: "POST",
         body: formData
       })
       .then(res => res.json())
-      .then(data => addMessage("AI: " + data.reply, "bot"))
-      .catch(() => addMessage("AI: Error occurred. Try again.", "bot"));
-
+      .then(data => {
+        const botReply = document.createElement("div");
+        botReply.classList.add("message", "bot");
+        botReply.innerText = "AI: " + data.reply;
+        chatBox.appendChild(botReply);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      })
+      .catch(err => {
+        const errorReply = document.createElement("div");
+        errorReply.classList.add("message", "bot");
+        errorReply.innerText = "AI: Error occurred. Try again.";
+        chatBox.appendChild(errorReply);
+      });
       messageInput.value = "";
       imageInput.value = "";
+      imagePreview.textContent = "No image selected";
     });
   </script>
 </body>
