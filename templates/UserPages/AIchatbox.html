@@ -184,7 +184,7 @@
         formData.append("image", file);
       }
 
-      fetch("https://gen-fit.onrender.com", {
+      fetch("/chatbot", {
         method: "POST",
         body: formData
       })
