@@ -52,7 +52,10 @@
     const username = {{ session.get('username')|tojson }};
     const sender_role = "user";
 
-    const socket = io();
+   const socket = io({
+  transports: ["polling"]  
+});
+
     const msgBox = document.getElementById("messages");
 
     socket.on("connect", () => {
