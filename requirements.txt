@@ -9,3 +9,4 @@ google-genai
 eventlet
 gevent
 gevent-websocket
+gunicorn
