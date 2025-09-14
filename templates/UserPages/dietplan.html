@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personalized Diet Plan</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 0;
+      background-image: url('/images/pexels-cottonbro-4753884.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 550px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #0f766e;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.3rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      margin-top: 1.5rem;
+      background-color: #0f766e;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+    .diet-result {
+      display: none;
+      margin-top: 2rem;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #e6fffa;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Personalized Diet Plan</h1>
+    <form id="dietForm">
+      <label for="goal">Primary Fitness Goal</label>
+      <select id="goal" required>
+        <option value="">--Select--</option>
+        <option value="muscle">Build Muscle</option>
+        <option value="fat">Lose Fat</option>
+        <option value="stamina">Improve Stamina</option>
+        <option value="deficit">Calorie Deficit</option>
+      </select>
+
+      <label for="level">Current Fitness Level</label>
+      <select id="level" required>
+        <option value="">--Select--</option>
+        <option value="beginner">Beginner</option>
+        <option value="intermediate">Intermediate</option>
+        <option value="advanced">Advanced</option>
+      </select>
+
+      <label for="diet">Preferred Diet Type</label>
+      <select id="diet">
+        <option value="">--Select--</option>
+        <option value="veg">Vegetarian</option>
+        <option value="nonveg">Non-Vegetarian</option>
+        <option value="vegan">Vegan</option>
+      </select>
+
+      <label for="weight">Your Weight (in kg)</label>
+      <input type="number" id="weight" placeholder="e.g. 70" required />
+
+      <label for="calories">Maintenance Calories</label>
+      <input type="number" id="calories" placeholder="e.g. 2500" required />
+
+      <label for="allergy">Any Allergies (Optional)</label>
+      <input type="text" id="allergy" />
+
+      <button type="submit">Generate Plan</button>
+    </form>
+
+    <div class="diet-result" id="result">
+      <h3>Your Suggested Diet Plan</h3>
+      <div id="dietContent"></div>
+    </div>
+  </div>
+
+  <script>
+    const dietPlans = {
+      muscle: {
+        veg: `<p><strong>Meal 1:</strong> Paneer bhurji, 2 rotis, banana, milk</p>
+              <p><strong>Meal 2:</strong> Poha with peanuts, almonds, apple</p>
+              <p><strong>Meal 3:</strong> Post-workout banana, paneer sandwich, milk</p>
+              <p><strong>Meal 4:</strong> Rice, dal, sabzi, salad, ghee</p>
+              <p><strong>Meal 5:</strong> Peanut butter bread, buttermilk</p>
+              <p><strong>Meal 6:</strong> Mixed veg curry, roti, curd</p>
+              <p><strong>Meal 7:</strong> Warm milk with jaggery</p>`,
+        nonveg: `<p><strong>Meal 1:</strong> 4 whole eggs, 2 toast, banana, milk</p>
+                 <p><strong>Meal 2:</strong> Chicken sandwich, almonds, fruit</p>
+                 <p><strong>Meal 3:</strong> Post-workout chicken wrap, banana</p>
+                 <p><strong>Meal 4:</strong> Rice, chicken curry, vegetables, salad</p>
+                 <p><strong>Meal 5:</strong> Omelette sandwich, buttermilk</p>
+                 <p><strong>Meal 6:</strong> Fish curry or boiled eggs, roti, sabzi</p>
+                 <p><strong>Meal 7:</strong> Milk with soaked dates</p>`,
+        vegan: `<p><strong>Meal 1:</strong> Tofu scramble, toast, banana, soy milk</p>
+                <p><strong>Meal 2:</strong> Oats with almond milk, dry fruits</p>
+                <p><strong>Meal 3:</strong> Banana, peanut butter toast</p>
+                <p><strong>Meal 4:</strong> Rice, dal, veggies, salad, coconut oil</p>
+                <p><strong>Meal 5:</strong> Hummus + veggies wrap</p>
+                <p><strong>Meal 6:</strong> Vegan lentil curry, roti, sauteed greens</p>
+                <p><strong>Meal 7:</strong> Almond milk with dates</p>`
+      },
+      fat: {
+        veg: `<p><strong>Meal 1:</strong> paneer + 1 toast + fruit</p>
+              <p><strong>Meal 2:</strong> Almonds + green tea</p>
+              <p><strong>Meal 3:</strong> 2 rotis, dal, sabzi, salad</p>
+              <p><strong>Meal 4:</strong> Roasted chana + orange</p>
+              <p><strong>Meal 5:</strong> Grilled paneer + veggies, roti</p>`,
+        nonveg: `<p><strong>Meal 1:</strong> 2 eggs + toast + fruit</p>
+                 <p><strong>Meal 2:</strong> Almonds + black coffee</p>
+                 <p><strong>Meal 3:</strong> 1 roti, dal, grilled chicken, salad</p>
+                 <p><strong>Meal 4:</strong> Boiled egg + fruit</p>
+                 <p><strong>Meal 5:</strong> Fish/Chicken breast + veg soup</p>`,
+        vegan: `<p><strong>Meal 1:</strong> Oats with almond milk + fruit</p>
+                <p><strong>Meal 2:</strong> Walnuts + green tea</p>
+                <p><strong>Meal 3:</strong> Brown rice, chickpeas, vegetables</p>
+                <p><strong>Meal 4:</strong> Roasted nuts + fruit</p>
+                <p><strong>Meal 5:</strong> Tofu stir-fry + salad</p>`
+      },
+      stamina: {
+        veg: `<p><strong>Meal 1:</strong> Oats, banana, paneer toast</p>
+              <p><strong>Meal 2:</strong> Almonds + dates + guava</p>
+              <p><strong>Meal 3:</strong> Rice, dal, sabzi, curd</p>
+              <p><strong>Meal 4:</strong> Sweet potato + black coffee</p>
+              <p><strong>Meal 5:</strong> Paneer + milk</p>
+              <p><strong>Meal 6:</strong> Roti + sabzi + dal + salad</p>`,
+        nonveg: `<p><strong>Meal 1:</strong> Boiled eggs + oats + banana</p>
+                 <p><strong>Meal 2:</strong> Chicken sandwich + juice</p>
+                 <p><strong>Meal 3:</strong> Rice + chicken + veggies + salad</p>
+                 <p><strong>Meal 4:</strong> Banana + coffee</p>
+                 <p><strong>Meal 5:</strong> Milk + 2 eggs</p>
+                 <p><strong>Meal 6:</strong> Fish curry + roti + greens</p>`,
+        vegan: `<p><strong>Meal 1:</strong> Tofu + toast + banana</p>
+                <p><strong>Meal 2:</strong> Chia pudding + fruit</p>
+                <p><strong>Meal 3:</strong> Lentils + rice + veggies</p>
+                <p><strong>Meal 4:</strong> Baked sweet potato + lemon water</p>
+                <p><strong>Meal 5:</strong> Smoothie with oats + peanut butter</p>
+                <p><strong>Meal 6:</strong> Tofu curry + salad + brown rice</p>`
+      }
+    };
+
+    document.getElementById('dietForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const goal = document.getElementById('goal').value;
+      const diet = document.getElementById('diet').value;
+      const resultDiv = document.getElementById('result');
+      const contentDiv = document.getElementById('dietContent');
+
+      if (!goal || !diet) {
+        contentDiv.innerHTML = '<p>Please select both goal and diet type.</p>';
+      } else {
+        contentDiv.innerHTML = dietPlans[goal][diet];
+      }
+
+      resultDiv.style.display = 'block';
+    });
+  </script>
+</body>
+</html>

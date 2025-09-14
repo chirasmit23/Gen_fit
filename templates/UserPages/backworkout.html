@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Back Workout</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      padding: 20px;
+    }
+    h2 {
+      color: #003366;
+      margin-top: 30px;
+    }
+    .exercise-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .exercise-card {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      width: 250px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+      transition: transform 0.2s;
+    }
+    .exercise-card:hover {
+      transform: translateY(-5px);
+    }
+    .exercise-card h4 {
+      margin: 0;
+      color: #333;
+    }
+    .description-card {
+      display: none;
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      margin-bottom: 8px;
+      background-color: #e6f0ff;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+      z-index: 1;
+      font-size: 14px;
+    }
+    .exercise-card:hover .description-card {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <h1>Back Workout</h1>
+
+  <h2>Upper Back</h2>
+  <div class="exercise-container">
+    <div class="exercise-card">
+      <div class="description-card">Compound row exercise for upper back development</div>
+      <h4>Barbell Row</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Cable variation targeting upper lats and traps</div>
+      <h4>Seated Cable Row</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Isolates the upper back with controlled dumbbell movement</div>
+      <h4>Incline Dumbbell Row</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Machine-based row to target upper back</div>
+      <h4>Chest Supported Machine Row</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Isolation movement using cables for mid-upper back</div>
+      <h4>Face Pull</h4>
+    </div>
+  </div>
+
+  <h2>Mid Back</h2>
+  <div class="exercise-container">
+    <div class="exercise-card">
+      <div class="description-card">Strengthens mid-back using heavy compound lift</div>
+      <h4>T-Bar Row</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Targets the rhomboids and middle traps</div>
+      <h4>Reverse Machine Fly</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Free weight row with one side focus</div>
+      <h4>Single-Arm Dumbbell Row</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Wide grip to emphasize mid and upper back</div>
+      <h4>Wide-Grip Barbell Row</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Classic barbell pull for total back mass</div>
+      <h4>Deadlift</h4>
+    </div>
+  </div>
+
+  <h2>Lower Back</h2>
+  <div class="exercise-container">
+    <div class="exercise-card">
+      <div class="description-card">Strengthens lower back and hamstrings</div>
+      <h4>Romanian Deadlift</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Bodyweight extension for spinal erectors</div>
+      <h4>Back Extension</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Hip hinge with barbell to target spinal erectors</div>
+      <h4>Good Mornings</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Cable movement isolating lower back with controlled motion</div>
+      <h4>Cable Pull-Through</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Advanced lift engaging full posterior chain</div>
+      <h4>Deficit Deadlift</h4>
+    </div>
+  </div>
+
+  <h2>Lat Focused</h2>
+  <div class="exercise-container">
+    <div class="exercise-card">
+      <div class="description-card">Primary lat building vertical pull</div>
+      <h4>Lat Pulldown</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Uses bodyweight to target the lats</div>
+      <h4>Pull-Ups</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Isolation movement with cable for full lat stretch</div>
+      <h4>Straight-Arm Pulldown</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Pull-up variation to emphasize lats</div>
+      <h4>Neutral-Grip Pull-Ups</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Wide angle cable pulldown for outer lat width</div>
+      <h4>Wide-Grip Lat Pulldown</h4>
+    </div>
+  </div>
+
+  <h2>Bodyweight Variations</h2>
+  <div class="exercise-container">
+    <div class="exercise-card">
+      <div class="description-card">Classic bodyweight pull for full back activation</div>
+      <h4>Chin-Ups</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Hangs to decompress spine and stretch lats</div>
+      <h4>Dead Hangs</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Bodyweight row using suspension or low bar</div>
+      <h4>Inverted Rows</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Push movement on rings for back control</div>
+      <h4>Ring Rows</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Bodyweight hinge to train spinal control</div>
+      <h4>Superman Hold</h4>
+    </div>
+  </div>
+</body>
+</html>

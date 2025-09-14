@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chest Workout</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      padding: 20px;
+    }
+    h2 {
+      color: #b30000;
+      margin-top: 30px;
+    }
+    .exercise-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .exercise-card {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      width: 250px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+      transition: transform 0.2s;
+    }
+    .exercise-card:hover {
+      transform: translateY(-5px);
+    }
+    .exercise-card h4 {
+      margin: 0;
+      color: #333;
+    }
+    .description-card {
+      display: none;
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      margin-bottom: 8px;
+      background-color: #fff5f5;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+      z-index: 1;
+      font-size: 14px;
+    }
+    .exercise-card:hover .description-card {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <h1>Chest Workout</h1>
+
+  <h2>Upper Chest</h2>
+  <div class="exercise-container">
+    <div class="exercise-card">
+      <div class="description-card">Targets upper chest with controlled dumbbell motion</div>
+      <h4>Incline Dumbbell Press</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Compound lift focusing on upper chest strength</div>
+      <h4>Incline Barbell Bench Press</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Isolation move for upper chest contraction</div>
+      <h4>Incline Cable Fly</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Fly motion to isolate the upper pecs</div>
+      <h4>Incline Dumbbell Fly</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Machine-based push for upper pec development</div>
+      <h4>Incline Machine Press</h4>
+    </div>
+  </div>
+
+  <h2>Mid Chest</h2>
+  <div class="exercise-container">
+    <div class="exercise-card">
+      <div class="description-card">Foundational compound exercise for overall chest mass</div>
+      <h4>Flat Barbell Bench Press</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Dumbbell version allowing greater range of motion</div>
+      <h4>Flat Dumbbell Press</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Cable isolation move for inner and mid chest</div>
+      <h4>Flat Cable Fly</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Machine version of chest press for stable pressing movement</div>
+      <h4>Chest Press Machine</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Classic bodyweight exercise for overall chest development</div>
+      <h4>Push-Ups</h4>
+    </div>
+  </div>
+
+  <h2>Lower Chest</h2>
+  <div class="exercise-container">
+    <div class="exercise-card">
+      <div class="description-card">Barbell press variation focusing on lower chest</div>
+      <h4>Decline Barbell Bench Press</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Dumbbell variation emphasizing lower pecs</div>
+      <h4>Decline Dumbbell Press</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Dip movement leaning forward to emphasize lower chest</div>
+      <h4>Dips (Chest-focused lean forward)</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Cable movement from high to low angle to hit lower chest</div>
+      <h4>High-to-Low Cable Fly</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Decline pressing on machine targeting lower pecs</div>
+      <h4>Decline Machine Press</h4>
+    </div>
+  </div>
+
+  <h2>Inner Chest</h2>
+  <div class="exercise-container">
+    <div class="exercise-card">
+      <div class="description-card">Machine fly focusing on pec contraction</div>
+      <h4>Pec Deck Machine</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Cable crossover bringing hands together to target inner pec</div>
+      <h4>Cable Crossover</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Dumbbells pressed together while pressing for inner chest activation</div>
+      <h4>Squeeze Press</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Push-up variation with close hand placement to target inner chest</div>
+      <h4>Close-Grip Push-Up</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Static plate hold to engage inner chest fibers</div>
+      <h4>Isometric Plate Squeeze</h4>
+    </div>
+  </div>
+
+  <h2>Bodyweight Variations</h2>
+  <div class="exercise-container">
+    <div class="exercise-card">
+      <div class="description-card">Classic push-up for general chest activation</div>
+      <h4>Standard Push-Ups</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Push-up with wider hand placement to target outer chest</div>
+      <h4>Wide Push-Ups</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Asymmetrical push-up increasing chest tension</div>
+      <h4>Archer Push-Ups</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Feet elevated to emphasize upper chest</div>
+      <h4>Decline Push-Ups</h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Advanced fly movement using rings to deeply target chest</div>
+      <h4>Ring Chest Fly</h4>
+    </div>
+  </div>
+</body>
+</html>

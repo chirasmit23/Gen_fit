@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Muscle Groups</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f2f2f2;
+      background-image: url('/images/pexels-cottonbro-4753884.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 550px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 2.2em;
+      color: whitesmoke;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 40px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 30px 20px;
+      text-align: center;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card-icon {
+      font-size: 50px;
+      margin-bottom: 15px;
+      color: #ff6b6b;
+    }
+
+    .card-title {
+      font-size: 1.4em;
+      font-weight: 600;
+      color: #333;
+    }
+
+    @media(max-width: 600px) {
+      .card-icon {
+        font-size: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Exercises</h1>
+
+  <div class="grid-container">
+    <a href="{{ url_for('triceps_workout') }}" class="card">
+      <div class="card-icon">🤜</div>
+      <div class="card-title">Triceps</div>
+    </a>
+    
+    <a href="{{ url_for('shoulder_workout') }}" class="card">
+      <div class="card-icon">🏹</div>
+      <div class="card-title">Shoulder</div>
+    </a>
+    <a href="{{ url_for('legs_workout') }}" class="card">
+      <div class="card-icon">🦵</div>
+      <div class="card-title">Legs</div>
+    </a>
+    <a href="{{ url_for('chest_workout') }}" class="card">
+      <div class="card-icon">🏋️‍♂️</div>
+      <div class="card-title">Chest</div>
+    </a>
+
+    <a href="{{ url_for('back_workout') }}" class="card">
+      <div class="card-icon">💪</div>
+      <div class="card-title">Back</div>
+    </a>
+
+    <a href="{{ url_for('biceps_workout') }}" class="card">
+      <div class="card-icon">🦾</div>
+      <div class="card-title">Biceps</div>
+    </a>
+
+  </div>
+
+</body>
+</html>

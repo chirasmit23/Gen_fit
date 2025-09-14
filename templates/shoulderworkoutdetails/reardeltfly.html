@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exercise Detail</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #003366;
+      margin-bottom: 20px;
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+    .section h2 {
+      margin-bottom: 10px;
+      color: #004080;
+    }
+    .video-placeholder {
+      width: 100%;
+      height: 400px;
+      background-color: #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 18px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Rear Delt Fly</h1>
+
+    <div class="section">
+      <h2>Description</h2>
+      <p>The Rear Delt Fly is a key isolation exercise for targeting the posterior deltoids. It helps in improving shoulder balance and posture, especially useful for those who spend time doing chest-dominant workouts or desk work.</p>
+    </div>
+
+    <div class="section">
+      <h2>Posture Guide</h2>
+      <p>
+        - Stand with feet shoulder-width apart or sit on a bench<br>
+        - Hold dumbbells with a neutral grip, arms extended downward<br>
+        - Hinge forward at the hips, keeping your back flat<br>
+        - Raise your arms to the sides in a wide arc, squeezing shoulder blades<br>
+        - Pause at the top, then lower the dumbbells with control<br>
+        - Avoid using momentum or swinging the arms
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Video Demonstration</h2>
+       <div class="gif-container">
+        <img src="{{ url_for('static', filename='exerscise videos/shoulder/dumbbell-rear-delt-fly.gif') }}"
+ aalt="Demo GIF" style="width: 90%; border-radius: 8px;">
+      </div>
+    </div>
+  </div>
+</body>
+</html>

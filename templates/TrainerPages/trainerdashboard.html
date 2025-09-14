@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Trainer Dashboard – GenFit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --accent: #0f766e;
+      --muted: #64748b;
+    }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, Arial;
+      background: #f8fafc;
+      color: #1f2937;
+    }
+    header {
+      background: var(--accent);
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h2 { margin: 0; }
+    header nav a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 1rem;
+      font-weight: 600;
+    }
+    .wrap {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: calc(100vh - 64px);
+    }
+    .sidebar { background: #eef2f2; padding: 1.5rem; }
+    .sidebar h2 { margin-top: 0; }
+    .sidebar ul { list-style: none; padding: 0; }
+    .sidebar li { margin: .6rem 0; }
+    .sidebar a { color: #0f172a; text-decoration: none; font-weight: 600; }
+    main { padding: 2rem; }
+    .flash {
+      margin-bottom: 1rem;
+      padding: .75rem;
+      border-radius: 6px;
+      background: #fffbeb;
+      color: #92400e;
+    }
+    .welcome h1 { margin: 0 0 .25rem; }
+    .welcome p { color: var(--muted); margin-top: 0; }
+    .subscribers { margin-top: 2rem; }
+    .sub-list { display: flex; flex-direction: column; gap: .6rem; }
+    .sub-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: .6rem .8rem;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(2,6,23,.04);
+    }
+    .sub-item .meta { font-size: .95rem; color: var(--muted); }
+    .btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: .5rem .75rem;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .btn.ghost {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+    .btn + .btn { margin-left: .5rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display:flex;align-items:center;gap:1rem">
+      <h2>GenFit</h2>
+      <nav>
+        <a href="{{ url_for('trainerdashboard') }}">Dashboard</a>
+        <a href="{{ url_for('trainerlist') }}">Find Trainers</a>
+        {% if session.get('trainer_id') %}
+          <a href="{{ url_for('trainerchat', user_id=session.get('trainer_id')) }}">Messages</a>
+        {% endif %}
+      </nav>
+    </div>
+    <div>
+      {% if session.get('trainername') %}
+        <strong>{{ session.get('trainername') }}</strong>
+      {% else %}
+        <a href="{{ url_for('trainerlogin') }}" style="color:#fff;text-decoration:underline">Login</a>
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="wrap">
+    <aside class="sidebar">
+      <h2>Menu</h2>
+      <ul>
+        <li><a href="{{ url_for('trainerdashboard') }}">Overview</a></li>
+        <li><a href="{{ url_for('userlist') }}">Available Users</a></li>
+        <li><a href="{{ url_for('trainerchat', user_id=session.get('trainer_id', 0)) }}">My Chats</a></li>
+      </ul>
+    </aside>
+
+    <main>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, msg in messages %}
+            <div class="flash">{{ msg }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <section class="welcome">
+        {% if session.get('trainername') %}
+          <h1>Welcome, {{ session.get('trainername') }}!</h1>
+          <p>Here’s an overview of your subscribers.</p>
+        {% else %}
+          <h1>Welcome to the Trainer Dashboard</h1>
+          <p>Please log in to see your clients and messages.</p>
+        {% endif %}
+      </section>
+
+      <section class="subscribers">
+        <h3>Your Subscribed Clients</h3>
+        {% if users %}
+          <div class="sub-list">
+            {% for u in users %}
+              <div class="sub-item">
+                <div>
+                  <div style="font-weight:600">{{ u.fullname }}</div>
+                  <div class="meta">Email: {{ u.email }} • Phone: {{ u.telephone }}</div>
+                </div>
+                <div>
+                  <a class="btn" href="{{ url_for('trainerchat', user_id=u.id) }}">Chat</a>
+                  <form method="post" action="{{ url_for('unsubscribe', trainer_id=session.get('trainer_id')) }}" style="display:inline">
+                    <input type="hidden" name="trainer_id" value="{{ session.get('trainer_id') }}">
+                    <input type="hidden" name="user_id" value="{{ u.id }}">
+                    <button class="btn ghost" type="submit">Remove</button>
+                  </form>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p style="color:var(--muted);margin-top:.6rem">No subscribers yet. Share your profile so users can subscribe.</p>
+        {% endif %}
+      </section>
+    </main>
+  </div>
+</body>
+</html>

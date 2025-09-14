@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Legs Workout</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px; }
+    h2 { color: #003366; margin-top: 30px; }
+    .exercise-container { display: flex; flex-wrap: wrap; gap: 15px; }
+    .exercise-card {
+      background-color: #fff; padding: 15px; border-radius: 10px; width: 250px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: relative; transition: transform 0.2s;
+    }
+    .exercise-card:hover { transform: translateY(-5px); }
+    .exercise-card h4 { margin: 0; color: #333; }
+    .description-card {
+      display: none; position: absolute; bottom: 100%; left: 0; margin-bottom: 8px;
+      background-color: #e6f0ff; padding: 10px; border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15); z-index: 1; font-size: 14px;
+    }
+    .exercise-card:hover .description-card { display: block; }
+    a { text-decoration: none; color: #333; }
+  </style>
+</head>
+<body>
+  <h1>Legs Workout</h1>
+
+  <h2>Compound Movements</h2>
+  <div class="exercise-container">
+    <div class="exercise-card">
+      <div class="description-card">Ultimate leg mass builder targeting quads, glutes, and hamstrings</div>
+      <h4><a href="{{ url_for('barbellbacksquat') }}">Barbell Back Squat</a></h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Builds overall leg strength and power</div>
+      <h4><a href="{{ url_for('frontsquat') }}">Front Squat</a></h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Great for glutes and hamstrings</div>
+      <h4><a href="{{ url_for('romaniandeadlift') }}">Romanian Deadlift</a></h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Unilateral movement that improves balance and glute activation</div>
+      <h4><a href="{{ url_for('bulgariansplitsquat') }}">Bulgarian Split Squat</a></h4>
+    </div>
+  </div>
+
+  <h2>Quadriceps Focus</h2>
+  <div class="exercise-container">
+    <div class="exercise-card">
+      <div class="description-card">Machine-based quad isolation exercise</div>
+      <h4><a href="{{ url_for('legextension') }}">Leg Extension</a></h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Barbell variation for quad emphasis</div>
+      <h4><a href="{{ url_for('hacksquat') }}">Hack Squat</a></h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Targets quads and improves knee tracking</div>
+      <h4><a href="{{ url_for('heelevatedgobletsquat') }}">Heel-Elevated Goblet Squat</a></h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Works quads and improves hip mobility</div>
+      <h4><a href="{{ url_for('stepups') }}">Step-Ups</a></h4>
+    </div>
+  </div>
+
+  <h2>Hamstrings & Glutes</h2>
+  <div class="exercise-container">
+    <div class="exercise-card">
+      <div class="description-card">Isolation exercise for hamstring curl</div>
+      <h4><a href="{{ url_for('seatedlegcurl') }}">Seated Leg Curl</a></h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Barbell glute bridge for hip thrust power</div>
+      <h4><a href="{{ url_for('hipthrust') }}">Hip Thrust</a></h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Cable pull-through for glutes and hamstrings</div>
+      <h4><a href="{{ url_for('cablepullthrough') }}">Cable Pull-Through</a></h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Bodyweight or weighted option for glutes</div>
+      <h4><a href="{{ url_for('glutekickback') }}">Glute Kickback</a></h4>
+    </div>
+  </div>
+
+  <h2>Calves & Finishers</h2>
+  <div class="exercise-container">
+    <div class="exercise-card">
+      <div class="description-card">Standing machine calf raises</div>
+      <h4><a href="{{ url_for('standingcalfraise') }}">Standing Calf Raise</a></h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Seated machine to target soleus</div>
+      <h4><a href="{{ url_for('seatedcalfraise') }}">Seated Calf Raise</a></h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Explosive squat jumps for conditioning</div>
+      <h4><a href="{{ url_for('jumpsquats') }}">Jump Squats</a></h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">High-rep lunges for burn and stability</div>
+      <h4><a href="{{ url_for('walkinglunges') }}">Walking Lunges</a></h4>
+    </div>
+  </div>
+</body>
+</html>

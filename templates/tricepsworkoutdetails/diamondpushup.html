@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diamond Push-Up</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f2f2f2; margin: 0; padding: 20px; }
+    .container { max-width: 900px; margin: 0 auto; background-color: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    h1 { color: #003366; margin-bottom: 20px; }
+    .section { margin-bottom: 30px; }
+    .section h2 { margin-bottom: 10px; color: #004080; }
+    .video-placeholder { width: 100%; height: 400px; background-color: #ccc; display: flex; align-items: center; justify-content: center; color: #666; font-size: 18px; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Diamond Push-Up</h1>
+    <div class="section">
+      <h2>Description</h2>
+      <p>Diamond push-ups are a variation of the standard push-up that emphasize the triceps. The unique hand placement also engages the inner chest and shoulders.</p>
+    </div>
+    <div class="section">
+      <h2>Posture Guide</h2>
+      <p>
+        - Get into a push-up position and bring your hands together under your chest<br>
+        - Form a diamond shape with your thumbs and index fingers<br>
+        - Lower your chest towards your hands, keeping elbows close to your body<br>
+        - Push back up to the starting position
+      </p>
+    </div>
+    <div class="section">
+      <h2>Video Demonstration</h2>
+       <div class="gif-container">
+        <img src="{{ url_for('static', filename='exerscise videos/Triceps/diamond-pushup.gif') }}"
+ aalt="Demo GIF" style="width: 90%; border-radius: 8px;">
+      </div>
+    </div>
+  </div>
+</body>
+</html>

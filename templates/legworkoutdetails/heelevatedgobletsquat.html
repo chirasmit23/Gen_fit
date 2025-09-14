@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exercise Detail</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #003366;
+      margin-bottom: 20px;
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+    .section h2 {
+      margin-bottom: 10px;
+      color: #004080;
+    }
+    .video-placeholder {
+      width: 100%;
+      height: 400px;
+      background-color: #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 18px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Heel-Elevated Goblet Squat</h1>
+
+    <div class="section">
+      <h2>Description</h2>
+      <p>The Heel-Elevated Goblet Squat is a quad-dominant lower body exercise that increases range of motion and improves knee tracking by elevating the heels. Holding a dumbbell or kettlebell in front (goblet position) adds core activation and posture reinforcement.</p>
+    </div>
+
+    <div class="section">
+      <h2>Posture Guide</h2>
+      <p>
+        - Stand with your heels elevated on weight plates or a wedge, feet shoulder-width apart<br>
+        - Hold a dumbbell or kettlebell at chest height in the goblet position<br>
+        - Keep your chest up and core tight<br>
+        - Squat down, allowing your knees to travel forward while keeping heels elevated<br>
+        - Go as deep as possible with a straight spine<br>
+        - Drive through your midfoot to return to standing<br>
+        - Avoid letting your elbows drop below the knees during the squat
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Video Demonstration</h2>
+       <div class="gif-container">
+        <img src="{{ url_for('static', filename='exerscise videos/leg/heel-elevated-squat-muscles-used.gif') }}"
+ aalt="Demo GIF" style="width: 90%; border-radius: 8px;">
+      </div>
+    </div>
+  </div>
+</body>
+</html>

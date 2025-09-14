@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Trainer Chat - {{ user.fullname if user else '' }}</title>
+  <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body { font-family: Arial, sans-serif; margin:0; background:#f2f4f7; }
+    header { background:#0f4a8c; color:#fff; padding:0.9rem 1rem; text-align:center }
+    .layout { display:flex; max-width:1100px; margin:1rem auto; height:80vh; background:#fff; border-radius:8px; overflow:hidden; }
+    .sidebar { width:260px; border-right:1px solid #e6e6e6; overflow:auto; background:#fafafa; }
+    .sidebar h3 { margin:0; padding:1rem; }
+    .sub { padding:0.8rem 1rem; border-bottom:1px solid #eee; }
+    .sub a { text-decoration:none; color:#0f172a; display:block; }
+    .chat-area { flex:1; display:flex; flex-direction:column; padding:1rem; }
+    .chat-title { font-weight:700; margin-bottom:0.6rem; }
+    .messages { flex:1; overflow:auto; padding:1rem; border:1px solid #ececec; border-radius:6px; background:#fbfbfb; }
+    .msg { margin:.5rem 0; padding:.6rem .9rem; border-radius:8px; max-width:75%; }
+    .msg.trainer { background:#dbeafe; align-self:flex-end; text-align:right; color:#0c3a6b; }
+    .msg.user { background:#e6ffed; align-self:flex-start; text-align:left; color:#054f2d; }
+    .composer { display:flex; margin-top:0.8rem; }
+    .composer input { flex:1; padding:.8rem; border-radius:6px; border:1px solid #d1d5db; }
+    .composer button { margin-left:.6rem; background:#0f766e; color:#fff; border:none; padding:.7rem 1rem; border-radius:6px; cursor:pointer;}
+  </style>
+</head>
+<body>
+  <header>Trainer Chat Interface</header>
+  <div class="layout">
+    <aside class="sidebar">
+      <h3>Subscribers</h3>
+      {% for s in (user.subscriptions if user else []) %}
+        
+      {% endfor %}
+
+      {% if subscribers is defined and subscribers %}
+        {% for sub in subscribers %}
+          <div class="sub"><a href="{{ url_for('trainerchat', user_id=sub.id) }}">{{ sub.fullname }}</a></div>
+        {% endfor %}
+      {% else %}
+        <div style="padding:1rem;color:#6b7280">No subscribers</div>
+      {% endif %}
+    </aside>
+
+    <section class="chat-area">
+      {% if user %}
+        <div class="chat-title">Chat with {{ user.fullname }}</div>
+
+        <div id="messages" class="messages" role="log" aria-live="polite">
+          {% for m in messages %}
+            <div class="msg {{ 'trainer' if m.sender_role == 'trainer' else 'user' }}">
+              <div>{{ m.content }}</div>
+              <div style="font-size:.75rem;color:#6b7280;margin-top:.25rem">{{ m.sender_role }} • {{ m.timestamp }}</div>
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="composer">
+          <input id="msgInput" placeholder="Type your message..." autocomplete="off" />
+          <button id="sendBtn">Send</button>
+        </div>
+      {% else %}
+        <div style="padding:1rem">Select a subscriber to start chatting.</div>
+      {% endif %}
+    </section>
+  </div>
+
+  <script>
+    const socket = io();
+    const room = {{ room|tojson }};
+    const userId = {{ user_id|tojson }};
+    const trainerId = {{ trainer_id|tojson }};
+    const username = {{ session.get('trainername')|tojson or "''" }};
+    const messagesEl = document.getElementById('messages');
+    const input = document.getElementById('msgInput');
+    const sendBtn = document.getElementById('sendBtn');
+
+    if (room) socket.emit('join', { room: room, username: username });
+
+    socket.on('receive_message', data => {
+
+      appendMessage(data.sender, data.message, data.sender_role);
+    });
+
+    function appendMessage(sender, message, sender_role) {
+      const el = document.createElement('div');
+      el.className = 'msg ' + (sender_role === 'trainer' ? 'trainer' : 'user');
+      el.innerHTML = `<div>${escapeHtml(message)}</div>
+                      <div style="font-size:.75rem;color:#6b7280;margin-top:.25rem">${escapeHtml(sender)} • just now</div>`;
+      messagesEl.appendChild(el);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    function sendMessage() {
+      const text = input.value.trim();
+      if (!text) return;
+      const payload = {
+        room: room,
+        sender: username,
+        message: text,
+        user_id: userId,
+        trainer_id: trainerId,
+        sender_role: 'trainer'
+      };
+      socket.emit('send_message', payload);
+      appendMessage(username, text, 'trainer'); 
+      input.value = '';
+    }
+    if (sendBtn) sendBtn.addEventListener('click', sendMessage);
+    if (input) input.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendMessage(); });
+
+    function escapeHtml(s){ return (''+s).replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
+    if (messagesEl) messagesEl.scrollTop = messagesEl.scrollHeight;
+  </script>
+</body>
+</html>

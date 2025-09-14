@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Supplement Guide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; 
+      background-image: url('/images/pexels-cottonbro-4753884.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 550px; }
+    .card:hover { transform: scale(1.05); transition: 0.3s; }
+    .modal-content { animation: slideIn 0.5s forwards; }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="text-center py-10">
+    <h1 class="text-4xl font-bold mb-6" style="color: whitesmoke;">All About Supplements</h1>
+    <div class="flex justify-center flex-wrap gap-6">
+      <div onclick="openPopup('q1')" class="card w-72 p-6 bg-white rounded-xl shadow-md font-bold cursor-pointer">What are Supplements?</div>
+      <div onclick="openPopup('q2')" class="card w-72 p-6 bg-white rounded-xl shadow-md font-bold cursor-pointer">Why are Supplements Important?</div>
+      <div onclick="openPopup('q3')" class="card w-72 p-6 bg-white rounded-xl shadow-md font-bold cursor-pointer">Why Gym Goers Need Supplements?</div>
+    </div>
+  </div>
+
+  <div class="text-center py-8">
+    <h2 class="text-3xl font-bold mb-6" style="color: whitesmoke;">Different Types of Supplements</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center">
+      <div onclick="showSupplement('Protein Powder')" class="card w-60 p-5 bg-white rounded-xl shadow-md font-bold cursor-pointer text-center">Protein Powder</div>
+      <div onclick="showSupplement('Creatine')" class="card w-60 p-5 bg-white rounded-xl shadow-md font-bold cursor-pointer text-center">Creatine</div>
+      <div onclick="showSupplement('BCAAs')" class="card w-60 p-5 bg-white rounded-xl shadow-md font-bold cursor-pointer text-center">BCAAs</div>
+      <div onclick="showSupplement('Pre-Workout')" class="card w-60 p-5 bg-white rounded-xl shadow-md font-bold cursor-pointer text-center">Pre-Workout</div>
+      <div onclick="showSupplement('Multivitamins')" class="card w-60 p-5 bg-white rounded-xl shadow-md font-bold cursor-pointer text-center">Multivitamins</div>
+      <div onclick="showSupplement('Omega-3')" class="card w-60 p-5 bg-white rounded-xl shadow-md font-bold cursor-pointer text-center">Omega-3</div>
+    </div>
+  </div>
+
+  <div class="text-center py-10">
+    <button onclick="openPopup('inputForm')" class="px-6 py-3 bg-blue-600 text-white font-bold rounded-lg shadow-lg hover:bg-blue-700">Supplements You Need</button>
+  </div>
+
+  <!-- Modals -->
+  <div id="modal" class="fixed inset-0 hidden bg-black bg-opacity-50 z-50 flex items-center justify-center">
+    <div class="bg-white w-11/12 md:w-2/3 p-6 rounded-lg shadow-xl modal-content relative">
+      <span class="absolute top-4 right-6 text-gray-500 text-2xl cursor-pointer" onclick="closePopup()">&times;</span>
+      <div id="modalContent" class="text-lg font-medium leading-relaxed"></div>
+    </div>
+  </div>
+
+  <script>
+    const supplementData = {
+      "Protein Powder": {
+        image: "https://via.placeholder.com/200x120?text=Protein+Powder",
+        benefits: "Supports muscle repair, growth, and overall protein intake.",
+        usage: "Consume 1-2 scoops daily after workout or as per protein requirement.",
+        sideEffects: "Overconsumption may cause digestive discomfort."
+      },
+      "Creatine": {
+        image: "https://via.placeholder.com/200x120?text=Creatine",
+        benefits: "Improves strength, increases muscle mass, and enhances high-intensity performance.",
+        usage: "Take 3-5g daily with water, preferably post-workout.",
+        sideEffects: "Mild bloating or water retention in some users."
+      },
+      "BCAAs": {
+        image: "https://via.placeholder.com/200x120?text=BCAAs",
+        benefits: "Reduces muscle soreness, supports recovery, and prevents muscle breakdown.",
+        usage: "Take before or during workout for optimal effect.",
+        sideEffects: "Generally safe, but excessive use may stress kidneys."
+      },
+      "Pre-Workout": {
+        image: "https://via.placeholder.com/200x120?text=Pre-Workout",
+        benefits: "Boosts energy, focus, and endurance for training sessions.",
+        usage: "Consume 15–30 mins before workout.",
+        sideEffects: "May cause jitters or insomnia due to caffeine."
+      },
+      "Multivitamins": {
+        image: "https://via.placeholder.com/200x120?text=Multivitamins",
+        benefits: "Supports immune health, metabolism, and fills nutritional gaps.",
+        usage: "Take once daily with a meal.",
+        sideEffects: "Rarely nausea or upset stomach if taken without food."
+      },
+      "Omega-3": {
+        image: "https://via.placeholder.com/200x120?text=Omega-3",
+        benefits: "Improves heart health, reduces inflammation, and supports joint and brain health.",
+        usage: "1–2 softgels daily with meals.",
+        sideEffects: "May cause fishy burps or mild indigestion."
+      }
+    };
+
+    const qna = {
+      q1: "<b>Supplements</b> are products designed to add nutritional value to your diet. They come in various forms such as powders, capsules, and liquids, and provide nutrients that may be missing or insufficient in your regular meals.",
+      q2: "<b>Supplements</b> help support overall health, enhance physical performance, and aid in recovery. For those with busy lifestyles or specific health goals, they can be a convenient way to ensure the body receives essential vitamins, minerals, and macronutrients.",
+      q3: `<b>Gym goers</b> often have increased nutritional demands due to intense physical activity. Supplements such as protein powders, creatine, BCAAs, and multivitamins can help:<br>
+        - Support muscle growth and repair<br>
+        - Improve endurance and strength<br>
+        - Reduce muscle soreness and fatigue<br>
+        - Enhance recovery and energy levels<br>
+        While a balanced diet should always come first, the right supplements can boost your performance and help you reach your fitness goals more efficiently.`
+    };
+
+    function openPopup(key) {
+      const content = qna[key] || formContent();
+      document.getElementById('modalContent').innerHTML = content;
+      document.getElementById('modal').classList.remove('hidden');
+    }
+
+    function showSupplement(name) {
+      const data = supplementData[name];
+      const content = `
+        <h2 class='text-xl font-bold mb-2'>${name}</h2>
+        <img src="${data.image}" alt="${name}" class="my-3 rounded-md">
+        <p><b>Benefits:</b> ${data.benefits}</p>
+        <p><b>Usage:</b> ${data.usage}</p>
+        <p><b>Side Effects:</b> ${data.sideEffects}</p>
+      `;
+      document.getElementById('modalContent').innerHTML = content;
+      document.getElementById('modal').classList.remove('hidden');
+    }
+
+    function closePopup() {
+      document.getElementById('modal').classList.add('hidden');
+    }
+
+    function formContent() {
+      return `
+        <h2 class='text-xl font-bold mb-4'>Supplements You Need</h2>
+        <form id="supplementForm" class="space-y-4">
+          <label class="block font-bold">What is your primary fitness goal?
+            <select id="goal" class="block w-full mt-1 p-2 border rounded">
+              <option value="build">Build Muscle</option>
+              <option value="lose">Lose Fat</option>
+              <option value="maintain">Maintain</option>
+            </select>
+          </label>
+
+          <label class="block font-bold">How often do you work out per week?
+            <select id="frequency" class="block w-full mt-1 p-2 border rounded">
+              <option value="1-2">1–2 Days</option>
+              <option value="3-5">3–5 Days</option>
+              <option value="6+">6+ Days</option>
+            </select>
+          </label>
+
+          <label class="block font-bold">What is your diet type?
+            <select id="diet" class="block w-full mt-1 p-2 border rounded">
+              <option value="omnivore">Omnivore</option>
+              <option value="vegetarian">Vegetarian</option>
+              <option value="vegan">Vegan</option>
+            </select>
+          </label>
+
+          <label class="block font-bold">Any known dietary restrictions or allergies?
+            <input id="restrictions" type="text" class="block w-full mt-1 p-2 border rounded" placeholder="e.g. lactose, gluten" />
+          </label>
+
+          <label class="block font-bold">What’s your age group?
+            <select id="age" class="block w-full mt-1 p-2 border rounded">
+              <option value="under18">Under 18</option>
+              <option value="18-30">18–30</option>
+              <option value="31-50">31–50</option>
+              <option value="50+">50+</option>
+            </select>
+          </label>
+
+          <button type="button" onclick="generatePlan()" class="bg-blue-600 text-white px-4 py-2 rounded font-bold">Generate Plan</button>
+        </form>`;
+    }
+
+    function generatePlan() {
+      const goal = document.getElementById('goal').value;
+      const frequency = document.getElementById('frequency').value;
+      const diet = document.getElementById('diet').value;
+      const age = document.getElementById('age').value;
+      const restrictions = document.getElementById('restrictions').value.trim();
+
+      let plan = "<h2 class='text-xl font-bold mb-2'>Your Personalized Supplement Plan</h2><ul class='list-disc ml-5'>";
+
+      if (goal === "build") plan += "<li>Whey Protein</li><li>Creatine Monohydrate</li>";
+      if (goal === "lose") plan += "<li>BCAAs</li><li>Fat Burner (if no health conditions)</li>";
+      if (goal === "maintain") plan += "<li>Multivitamins</li><li>Omega-3</li>";
+
+      if (frequency === "6+") plan += "<li>Pre-workout (to sustain high energy)</li>";
+
+      if (diet === "vegan") plan += "<li>Plant Protein</li><li>Vitamin B12</li>";
+      else if (diet === "vegetarian") plan += "<li>Iron</li><li>Vitamin B Complex</li>";
+
+      if (age === "50+") plan += "<li>Joint Support Supplements</li>";
+
+      if (restrictions.includes("lactose")) plan += "<li>Lactose-free or Plant Protein</li>";
+
+      plan += "</ul><a id='downloadBtn' class='mt-4 inline-block text-blue-700 underline cursor-pointer'>Download Plan</a>";
+
+      document.getElementById('modalContent').innerHTML = plan;
+
+      document.getElementById('downloadBtn').addEventListener('click', () => {
+        const blob = new Blob([plan.replace(/<[^>]+>/g, '')], { type: 'text/plain' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = "Supplement_Plan.txt";
+        link.click();
+      });
+    }
+  </script>
+</body>
+</html>

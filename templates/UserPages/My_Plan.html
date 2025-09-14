@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Workout Plan</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background-color: #e9eff1;
+      background-image: url('/images/pexels-cottonbro-4753884.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    h1, h2 {
+      text-align: center;
+      color: #333;
+    }
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    .filters input, .filters select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      flex: 1;
+      min-width: 180px;
+    }
+    .filters button {
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .entry {
+      background: #f7fafd;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      border-left: 5px solid #007BFF;
+      transition: 0.3s;
+    }
+    .entry:hover {
+      background: #eef6ff;
+    }
+    .entry h4 {
+      margin: 0 0 8px 0;
+      color: #007BFF;
+    }
+    .sets {
+      margin-top: 10px;
+    }
+    .sets p {
+      margin: 3px 0;
+      font-size: 14px;
+    }
+    .actions {
+      margin-top: 10px;
+    }
+    .actions button {
+      margin-right: 10px;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background-color: #28a745;
+      color: white;
+    }
+    .actions button:last-child {
+      background-color: #dc3545;
+    }
+    form {
+      margin-top: 30px;
+    }
+    form label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    form input, form select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    form button {
+      padding: 12px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    #progress-section {
+      margin-top: 50px;
+    }
+    canvas {
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>My Workout Plan</h1>
+
+    <h2>Add New Entry</h2>
+    <form onsubmit="addExercise(event)">
+      <label>Date:
+        <input type="date" id="date" required />
+      </label>
+      <label>Muscle Group:
+        <select id="muscleGroup" required>
+          <option value="">Select Muscle Group</option>
+          <option>Chest</option>
+          <option>Back</option>
+          <option>Legs</option>
+          <option>Shoulders</option>
+          <option>Biceps</option>
+          <option>Triceps</option>
+          <option>Core</option>
+          <option>Full Body</option>
+        </select>
+      </label>
+      <label>Exercise:
+        <input type="text" id="exercise" required />
+      </label>
+      <label>Sets (e.g. 50-10, 55-8):
+        <input type="text" id="sets" placeholder="50-10,55-8" required />
+      </label>
+      <button type="submit">Add Exercise</button>
+    </form>
+
+    <div class="filters">
+      <input type="date" id="filterDate">
+      <select id="filterMuscle">
+        <option value="">All Muscle Groups</option>
+        <option>Chest</option>
+        <option>Back</option>
+        <option>Legs</option>
+        <option>Shoulders</option>
+        <option>Biceps</option>
+        <option>Triceps</option>
+        <option>Core</option>
+        <option>Full Body</option>
+      </select>
+      <button onclick="filterEntries()">Filter</button>
+    </div>
+
+    <div id="entries"></div>
+
+    <div id="progress-section">
+      <h2>Progress Graphs</h2>
+      <label for="exerciseFilterChart">Filter by Exercise:</label>
+      <select id="exerciseFilterChart" onchange="updateChart()"></select>
+      <canvas id="progressChart"></canvas>
+    </div>
+  </div>
+
+  <script>
+    let entries = JSON.parse(localStorage.getItem('workoutEntries')) || [];
+
+    function renderList(list = entries) {
+      const container = document.getElementById('entries');
+      container.innerHTML = '';
+      list.forEach((e, index) => {
+        const card = document.createElement('div');
+        card.className = 'entry';
+        const setsHTML = (e.sets || []).map((set, i) => `<p>Set ${i + 1}: ${set.weight} kg × ${set.reps} reps</p>`).join('');
+        card.innerHTML = `
+          <h4>${e.exercise} (${e.muscleGroup}) - ${e.date}</h4>
+          <div class="sets">${setsHTML}</div>
+          <div class="actions">
+            <button onclick="editEntry(${index})">Edit</button>
+            <button onclick="deleteEntry(${index})">Delete</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+      populateChartFilter();
+      updateChart();
+    }
+
+    function addExercise(e) {
+      e.preventDefault();
+      const date = document.getElementById('date').value;
+      const muscleGroup = document.getElementById('muscleGroup').value;
+      const exercise = document.getElementById('exercise').value;
+      const setsInput = document.getElementById('sets').value;
+
+      const currentSets = setsInput.split(',').map(s => {
+        const [weight, reps] = s.trim().split('-');
+        return { weight: parseInt(weight), reps: parseInt(reps) };
+      });
+
+      entries.push({ date, muscleGroup, exercise, sets: currentSets });
+      localStorage.setItem('workoutEntries', JSON.stringify(entries));
+      renderList();
+      e.target.reset();
+    }
+
+    function editEntry(index) {
+      const item = entries[index];
+      document.getElementById('date').value = item.date;
+      document.getElementById('muscleGroup').value = item.muscleGroup;
+      document.getElementById('exercise').value = item.exercise;
+      document.getElementById('sets').value = (item.sets || []).map(s => `${s.weight}-${s.reps}`).join(',');
+      entries.splice(index, 1);
+      renderList();
+    }
+
+    function deleteEntry(index) {
+      entries.splice(index, 1);
+      localStorage.setItem('workoutEntries', JSON.stringify(entries));
+      renderList();
+    }
+
+    function filterEntries() {
+      const date = document.getElementById('filterDate').value;
+      const muscle = document.getElementById('filterMuscle').value.toLowerCase();
+      const filtered = entries.filter(e => {
+        return (!date || e.date === date) && (!muscle || e.muscleGroup.toLowerCase().includes(muscle) || e.exercise.toLowerCase().includes(muscle));
+      });
+      renderList(filtered);
+    }
+
+    let chart;
+    function updateChart() {
+      const selectedExercise = document.getElementById('exerciseFilterChart').value;
+      const filtered = selectedExercise ? entries.filter(e => e.exercise === selectedExercise) : entries;
+
+      const chartData = {};
+
+      filtered.forEach(e => {
+        const date = e.date;
+        const totalWeight = e.sets.reduce((acc, s) => acc + (s.weight * s.reps), 0);
+        if (!chartData[date]) chartData[date] = 0;
+        chartData[date] += totalWeight;
+      });
+
+      const labels = Object.keys(chartData).sort();
+      const data = labels.map(date => chartData[date]);
+
+      if (chart) chart.destroy();
+
+      const ctx = document.getElementById('progressChart').getContext('2d');
+      chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Total Volume (kg × reps)',
+            data: data,
+            borderColor: '#007BFF',
+            fill: false,
+            tension: 0.2
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { position: 'top' },
+            title: { display: true, text: 'Workout Progress Over Time' }
+          }
+        }
+      });
+    }
+
+    function populateChartFilter() {
+      const selector = document.getElementById('exerciseFilterChart');
+      const uniqueExercises = [...new Set(entries.map(e => e.exercise))];
+      selector.innerHTML = '<option value="">All Exercises</option>' +
+        uniqueExercises.map(ex => `<option value="${ex}">${ex}</option>`).join('');
+    }
+
+    renderList();
+  </script>
+</body>
+</html>

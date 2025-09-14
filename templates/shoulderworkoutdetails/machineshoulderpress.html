@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exercise Detail</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #003366;
+      margin-bottom: 20px;
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+    .section h2 {
+      margin-bottom: 10px;
+      color: #004080;
+    }
+    .video-placeholder {
+      width: 100%;
+      height: 400px;
+      background-color: #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 18px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Machine Shoulder Press</h1>
+
+    <div class="section">
+      <h2>Description</h2>
+      <p>The Machine Shoulder Press is a guided resistance exercise designed to strengthen the deltoid muscles, particularly the anterior and medial heads. Using a machine provides added stability, making it ideal for beginners or for focusing on shoulder isolation with minimal lower body involvement.</p>
+    </div>
+
+    <div class="section">
+      <h2>Posture Guide</h2>
+      <p>
+        - Adjust the seat so that the handles are level with your shoulders<br>
+        - Sit with your back flat against the pad and feet planted firmly<br>
+        - Grip the handles with palms facing forward<br>
+        - Press the handles upward until your arms are almost fully extended<br>
+        - Slowly return to the starting position, maintaining control throughout
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Video Demonstration</h2>
+      <div class="gif-container">
+        <img src="{{ url_for('static', filename='exerscise videos/shoulder/machine shoulder pree.gif') }}"
+ aalt="Demo GIF" style="width: 90%; border-radius: 8px;">
+      </div>
+    </div>
+  </div>
+</body>
+</html>

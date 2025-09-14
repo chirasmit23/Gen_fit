@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exercise Detail</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #003366;
+      margin-bottom: 20px;
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+    .section h2 {
+      margin-bottom: 10px;
+      color: #004080;
+    }
+    .video-placeholder {
+      width: 100%;
+      height: 400px;
+      background-color: #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 18px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Leaning Lateral Raise</h1>
+
+    <div class="section">
+      <h2>Description</h2>
+      <p>The Leaning Lateral Raise is a shoulder isolation exercise that enhances lateral deltoid development. By leaning away from the anchor point, it increases the range of motion and tension on the delts throughout the lift.</p>
+    </div>
+
+    <div class="section">
+      <h2>Posture Guide</h2>
+      <p>
+        - Stand beside a sturdy object and grasp it with one hand<br>
+        - Lean your body slightly away, keeping the supporting arm straight<br>
+        - Hold a dumbbell in the opposite hand<br>
+        - Raise the dumbbell to shoulder height while maintaining a slight elbow bend<br>
+        - Control the descent and repeat for reps before switching sides
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Video Demonstration</h2>
+      <div class="gif-container">
+        <img src="{{ url_for('static', filename='exerscise videos/shoulder/Leaning-Cable-Lateral-Raise-1.gif') }}"
+ aalt="Demo GIF" style="width: 90%; border-radius: 8px;">
+      </div>
+    </div>
+  </div>
+</body>
+</html>

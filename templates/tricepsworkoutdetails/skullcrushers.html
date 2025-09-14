@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skull Crushers</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f2f2f2; margin: 0; padding: 20px; }
+    .container { max-width: 900px; margin: 0 auto; background-color: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    h1 { color: #003366; margin-bottom: 20px; }
+    .section { margin-bottom: 30px; }
+    .section h2 { margin-bottom: 10px; color: #004080; }
+    .video-placeholder { width: 100%; height: 400px; background-color: #ccc; display: flex; align-items: center; justify-content: center; color: #666; font-size: 18px; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Skull Crushers</h1>
+    <div class="section">
+      <h2>Description</h2>
+      <p>Skull Crushers, or lying triceps extensions, isolate the triceps muscles and are excellent for building size and strength in the back of the arms. This exercise is often performed with an EZ curl bar or dumbbells.</p>
+    </div>
+    <div class="section">
+      <h2>Posture Guide</h2>
+      <p>
+        - Lie on a flat bench holding an EZ curl bar or dumbbells with arms extended<br>
+        - Bend elbows and slowly lower the weight toward your forehead<br>
+        - Keep upper arms stationary and only move the forearms<br>
+        - Extend arms back to the starting position under control
+      </p>
+    </div>
+    <div class="section">
+      <h2>Video Demonstration</h2>
+       <div class="gif-container">
+        <img src="{{ url_for('static', filename='exerscise videos/Triceps/Dumbbell-Skull-Crusher.gif') }}"
+ aalt="Demo GIF" style="width: 90%; border-radius: 8px;">
+      </div>
+    </div>
+  </div>
+</body>
+</html>

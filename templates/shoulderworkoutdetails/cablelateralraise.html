@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exercise Detail</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #003366;
+      margin-bottom: 20px;
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+    .section h2 {
+      margin-bottom: 10px;
+      color: #004080;
+    }
+    .video-placeholder {
+      width: 100%;
+      height: 400px;
+      background-color: #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 18px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Cable Lateral Raise</h1>
+
+    <div class="section">
+      <h2>Description</h2>
+      <p>The Cable Lateral Raise is a resistance-based shoulder exercise that targets the lateral deltoid muscles. It offers constant tension throughout the movement, helping to develop shoulder width and symmetry.</p>
+    </div>
+
+    <div class="section">
+      <h2>Posture Guide</h2>
+      <p>
+        - Stand next to a low cable pulley with a handle attached<br>
+        - Grasp the handle with the hand farthest from the pulley<br>
+        - Keep your back straight and core tight<br>
+        - Raise your arm laterally to shoulder height while keeping a slight bend in your elbow<br>
+        - Slowly lower the handle back to the starting position<br>
+        - Perform equal reps on both sides
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Video Demonstration</h2>
+     <div class="gif-container">
+        <img src="{{ url_for('static', filename='exerscise videos/shoulder/cable-one-arm-lateral-raise.gif') }}"
+ aalt="Demo GIF" style="width: 90%; border-radius: 8px;">
+      </div>
+    </div>
+  </div>
+</body>
+</html>

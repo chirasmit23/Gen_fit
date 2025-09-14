@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exercise Detail</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #003366;
+      margin-bottom: 20px;
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+    .section h2 {
+      margin-bottom: 10px;
+      color: #004080;
+    }
+    .video-placeholder {
+      width: 100%;
+      height: 400px;
+      background-color: #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 18px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Shoulder Press Burnout</h1>
+
+    <div class="section">
+      <h2>Description</h2>
+      <p>Shoulder Press Burnout is a high-rep finisher for shoulder workouts designed to exhaust the deltoids, especially after compound pressing movements. Using light weights or just body weight, the goal is to keep pressing without rest until failure, maximizing hypertrophy and endurance.</p>
+    </div>
+
+    <div class="section">
+      <h2>Posture Guide</h2>
+      <p>
+        - Sit or stand upright with dumbbells or a barbell at shoulder height<br>
+        - Press the weights overhead until arms are fully extended<br>
+        - Lower under control, keeping constant tension<br>
+        - Minimize rest and continue pressing until failure<br>
+        - Focus on strict form and maintaining upright posture
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Video Demonstration</h2>
+      <div class="gif-container">
+        <img src="{{ url_for('static', filename='exerscise videos/shoulder/-Overhead-Press_Shoulders_360.gif') }}"
+ aalt="Demo GIF" style="width: 90%; border-radius: 8px;">
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exercise Detail</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #003366;
+      margin-bottom: 20px;
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+    .section h2 {
+      margin-bottom: 10px;
+      color: #004080;
+    }
+    .video-placeholder {
+      width: 100%;
+      height: 400px;
+      background-color: #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 18px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Leg Extension</h1>
+
+    <div class="section">
+      <h2>Description</h2>
+      <p>The Leg Extension is an isolation exercise that targets the quadriceps. It is typically performed using a leg extension machine and is ideal for building quad size, improving definition, and strengthening the knee joint.</p>
+    </div>
+
+    <div class="section">
+      <h2>Posture Guide</h2>
+      <p>
+        - Sit on the leg extension machine with your back flat and knees aligned with the pivot point<br>
+        - Hook your feet under the padded bar<br>
+        - Extend your legs fully while squeezing your quads at the top<br>
+        - Lower the weight in a controlled motion back to the starting position<br>
+        - Avoid swinging or using momentum to lift the weight
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Video Demonstration</h2>
+       <div class="gif-container">
+        <img src="{{ url_for('static', filename='exerscise videos/leg/leg-extension-toes-inward.gif') }}"
+ aalt="Demo GIF" style="width: 90%; border-radius: 8px;">
+      </div>
+    </div>
+  </div>
+</body>
+</html>

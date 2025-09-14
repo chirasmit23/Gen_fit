@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Available Trainers</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      padding: 1.5rem;
+      color: #222;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      padding: 1rem 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    .trainer-name {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      margin: 0.3rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+
+    .btn-subscribe {
+      background: #4CAF50;
+      color: white;
+    }
+
+    .btn-subscribe:hover {
+      background: #43a047;
+    }
+
+    .btn-unsubscribe {
+      background: #f44336;
+      color: white;
+    }
+
+    .btn-unsubscribe:hover {
+      background: #e53935;
+    }
+
+    .btn-chat {
+      background: #2196F3;
+      color: white;
+      text-decoration: none;
+      line-height: 2.2rem;
+    }
+
+    .btn-chat:hover {
+      background: #1976d2;
+    }
+  </style>
+</head>
+<body>
+  <h1>Available Trainers</h1>
+
+  <div class="container">
+    {% for t in trainers %}
+      <div class="card">
+        <div class="trainer-name">{{ t.trainername }}</div>
+        
+        {% if subscribed_to.get(t.id) %}
+          <form method="post" action="{{ url_for('unsubscribe', trainer_id=t.id) }}" style="display:inline;">
+            <button class="btn btn-unsubscribe" type="submit">Unsubscribe</button>
+          </form>
+          <a class="btn btn-chat" href="{{ url_for('userchat', trainer_id=t.id) }}">💬 Chat</a>
+        {% else %}
+          <form method="post" action="{{ url_for('subscribe', trainer_id=t.id) }}" style="display:inline;">
+            <button class="btn btn-subscribe" type="submit">Subscribe</button>
+          </form>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</body>
+</html>

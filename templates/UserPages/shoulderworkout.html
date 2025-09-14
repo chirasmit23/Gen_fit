@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shoulder Workout</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      padding: 20px;
+    }
+    h2 {
+      color: #003366;
+      margin-top: 30px;
+    }
+    .exercise-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .exercise-card {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      width: 250px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+      transition: transform 0.2s;
+    }
+    .exercise-card:hover {
+      transform: translateY(-5px);
+    }
+    .exercise-card h4 {
+      margin: 0;
+      color: #333;
+    }
+    .description-card {
+      display: none;
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      margin-bottom: 8px;
+      background-color: #e6f0ff;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+      z-index: 1;
+      font-size: 14px;
+    }
+    .exercise-card:hover .description-card {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <h1>Shoulder Workout</h1>
+
+  <h2>Compound Movements</h2>
+  <div class="exercise-container">
+    <div class="exercise-card">
+      <div class="description-card">Builds overall shoulder mass, hits all 3 deltoid heads</div>
+      <h4><a href="{{ url_for('overheadbarbellpress') }}" style="text-decoration: none; color: #333;">Overhead Barbell Press</a></h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Great for strength and anterior delts</div>
+      <h4><a href="{{ url_for('seateddumbbellpress') }}" style="text-decoration: none; color: #333;">Seated Dumbbell Press</a></h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Push press for explosive power and overload</div>
+      <h4><a href="{{ url_for('pushpress') }}" style="text-decoration: none; color: #333;">Push Press</a></h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Machine-based overhead press for stability</div>
+      <h4><a href="{{ url_for('machineshoulderpress') }}" style="text-decoration: none; color: #333;">Machine Shoulder Press</a></h4>
+    </div>
+  </div>
+
+  <h2>Lateral Head Focus</h2>
+  <div class="exercise-container">
+    <div class="exercise-card">
+      <div class="description-card">Isolates the lateral delts for width</div>
+      <h4><a href="{{ url_for('dumbbelllateralraise') }}" style="text-decoration: none; color: #333;">Dumbbell Lateral Raise</a></h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Cable variation for constant tension</div>
+      <h4><a href="{{ url_for('cablelateralraise') }}" style="text-decoration: none; color: #333;">Cable Lateral Raise</a></h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Use leaning to increase stretch on lateral delts</div>
+      <h4><a href="{{ url_for('leaninglateralraise') }}" style="text-decoration: none; color: #333;">Leaning Lateral Raise</a></h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Side raises on machine for isolation</div>
+      <h4><a href="{{ url_for('machinelateralraise') }}" style="text-decoration: none; color: #333;">Machine Lateral Raise</a></h4>
+    </div>
+  </div>
+
+  <h2>Rear Delt Activation</h2>
+  <div class="exercise-container">
+    <div class="exercise-card">
+      <div class="description-card">Targets rear delts and upper back</div>
+      <h4><a href="{{ url_for('reversepecdeck') }}" style="text-decoration: none; color: #333;">Reverse Pec Deck</a></h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Bent-over dumbbell raises for rear delts</div>
+      <h4><a href="{{ url_for('reardeltfly') }}" style="text-decoration: none; color: #333;">Rear Delt Fly</a></h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Cable rear delt fly for isolation and constant tension</div>
+      <h4><a href="{{ url_for('facepulls') }}" style="text-decoration: none; color: #333;">Face Pulls</a></h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Incline bench reverse fly for isolation</div>
+      <h4><a href="{{ url_for('inclinereversefly') }}" style="text-decoration: none; color: #333;">Incline Reverse Fly</a></h4>
+    </div>
+  </div>
+
+  <h2>Burnout Finishers</h2>
+  <div class="exercise-container">
+    <div class="exercise-card">
+      <div class="description-card">Lightweight lateral raises to failure</div>
+      <h4><a href="{{ url_for('burnoutlaterals') }}" style="text-decoration: none; color: #333;">Burnout Laterals</a></h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Fast-tempo dumbbell presses</div>
+      <h4><a href="{{ url_for('shoulderpressburnout') }}" style="text-decoration: none; color: #333;">Shoulder Press Burnout</a></h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">High-rep upright rows for trap and delt finish</div>
+      <h4><a href="{{ url_for('uprightrowburnout') }}" style="text-decoration: none; color: #333;">Upright Row Burnout</a></h4>
+    </div>
+    <div class="exercise-card">
+      <div class="description-card">Partial lateral raises for final pump</div>
+      <h4><a href="{{ url_for('halfrepslateralraise') }}" style="text-decoration: none; color: #333;">Half-Reps Lateral Raise</a></h4>
+    </div>
+  </div>
+</body>
+</html>
