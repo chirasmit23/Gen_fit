@@ -10,6 +10,8 @@ from google import genai
 from dotenv import load_dotenv
 from werkzeug.security import generate_password_hash, check_password_hash
 
+from sqlalchemy.pool import NullPool
+
 app=Flask(__name__,template_folder="templates")
 
 CORS(app)
