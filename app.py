@@ -447,6 +447,8 @@ def chatbot():
 
 workouts.register_workout_routes(app)
 if __name__ == "__main__":
+    import eventlet
+    import eventlet.wsgi
     
     with app.app_context():
         db.create_all()
