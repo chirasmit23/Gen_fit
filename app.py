@@ -355,41 +355,94 @@ def handle_send_message(data):
     }
     logging.debug(f"[Send] broadcasting msg id={msg.id} to room={room} payload={load}")
     emit("receive_message", load, room=room)
-@app.route("/chatbot", methods=["POST", "GET"]) 
+from werkzeug.utils import secure_filename
+from PIL import Image    
+@app.route("/chatbot", methods=["POST", "GET"])
 def chatbot():
     if request.method == "POST":
         UPLOAD_FOLDER = "uploads"
         os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-        textInput = request.form.get("msg")
+        textInput = request.form.get("msg", "").strip()
         imageInput = request.files.get("image")
 
+        # load .env and API key
         load_dotenv()
-        api_key = os.getenv("My_gemini_api_key")
-
+        api_key = os.getenv("GEMINI_API_KEY") or os.getenv("My_gemini_api_key")
         if not api_key:
-            return jsonify({"error": "API key not found"})
-        genai.configure(api_key=api_key)
-        model = genai.GenerativeModel("gemini-2.5-flash")
+            app.logger.error("API key missing")
+            return jsonify({"reply": "Error: API key not found on server."}), 500
+
+        # Create client explicitly with API key (recommended)
+        try:
+            client = genai.Client(api_key=api_key)
+        except Exception as e:
+            app.logger.exception("Failed to create genai client")
+            return jsonify({"reply": f"Error initializing AI client: {str(e)}"}), 500
 
         try:
+            # If image was uploaded, save and open as PIL Image (docs example supports PIL Image)
             if imageInput:
-                image_path = os.path.join(UPLOAD_FOLDER, imageInput.filename)
+                filename = secure_filename(imageInput.filename)
+                image_path = os.path.join(UPLOAD_FOLDER, filename)
                 imageInput.save(image_path)
 
-                with open(image_path, "rb") as f:
-                    response = model.generate_content([f, textInput or "Analyze this image"])
-            else:
-                response = model.generate_content([textInput or "Hello!"])
+                # Open with PIL (the SDK example shows passing a PIL image object directly)
+                try:
+                    pil_image = Image.open(image_path).convert("RGB")
+                except Exception as e:
+                    app.logger.exception("PIL failed to open image")
+                    return jsonify({"reply": f"Error reading uploaded image: {str(e)}"}), 400
 
-            if hasattr(response, "text") and response.text:
-                return jsonify({"reply": response.text})
+                # Compose prompt: prefer user text but provide fallback
+                prompt = textInput or "Please describe the food in this image and estimate calories."
+
+                # Call generate_content like the docs: contents = [prompt, pil_image]
+                # (This pattern is shown in the official Python examples.)
+                response = client.models.generate_content(
+                    model="gemini-2.5-flash",
+                    contents=[prompt, pil_image]
+                )
             else:
-                return jsonify({"reply": "No response from AI."})
+                prompt = textInput or "Hello!"
+                response = client.models.generate_content(
+                    model="gemini-2.5-flash",
+                    contents=prompt
+                )
+
+            # Extract text safely from response (cover SDK variants)
+            reply_text = None
+            if hasattr(response, "text") and response.text:
+                reply_text = response.text
+            else:
+                # Try candidates -> content -> parts -> text (docs show this structure)
+                try:
+                    if getattr(response, "candidates", None):
+                        cand = response.candidates[0]
+                        parts = getattr(cand.content, "parts", None) or getattr(cand.content, "parts", [])
+                        if parts:
+                            # parts may be list of objects or dicts
+                            first_part = parts[0]
+                            # support object or dict
+                            reply_text = getattr(first_part, "text", None) or first_part.get("text") if isinstance(first_part, dict) else None
+                except Exception:
+                    app.logger.debug("response parsing fallback failed", exc_info=True)
+
+            if not reply_text:
+                # Log entire response server-side for debugging (do NOT expose sensitive info in prod)
+                app.logger.info("Full AI response object: %s", repr(response))
+                return jsonify({"reply": "No text returned by AI. Check server logs for response structure."}), 500
+
+            return jsonify({"reply": reply_text})
 
         except Exception as e:
-            return jsonify({"reply": f"Error: {str(e)}"})
+            # Log trace for debugging
+            tb = traceback.format_exc()
+            app.logger.error("Exception calling genai: %s\n%s", str(e), tb)
+            # Return the error message so frontend sees it while debugging
+            return jsonify({"reply": f"AI call error: {str(e)}"}), 500
 
+    # GET -> render chat page
     return render_template("UserPages/AIchatbox.html")
 
 workouts.register_workout_routes(app)
