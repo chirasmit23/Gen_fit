@@ -51,7 +51,11 @@
     const username = {{ session.get('trainername')|tojson }};
     const sender_role = "trainer";
 
-    const socket = io();
+    const socket = io({
+  transports: ["websocket", "polling"],
+  withCredentials: true
+});
+
     const msgBox = document.getElementById("messages");
 
     socket.on("connect", () => {
