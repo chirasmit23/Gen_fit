@@ -257,7 +257,7 @@ python-slugify
 python-socketio
 pytorch-lightning
 pytz
-pywin32
+
 PyYAML
 pyzmq
 RapidFuzz
