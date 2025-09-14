@@ -7,88 +7,97 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { font-family: 'Inter', sans-serif; 
+    body { 
+      font-family: 'Inter', sans-serif;
       background-image: url('/images/pexels-cottonbro-4753884.jpg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      height: 550px; }
+      min-height: 100vh;
+    }
     .card:hover { transform: scale(1.05); transition: 0.3s; }
-    .modal-content { animation: slideIn 0.5s forwards; }
+    .modal-content { animation: slideIn 0.4s forwards; }
     @keyframes slideIn {
-      from { opacity: 0; transform: translateY(50px); }
+      from { opacity: 0; transform: translateY(40px); }
       to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
-  <div class="text-center py-10">
-    <h1 class="text-4xl font-bold mb-6" style="color: whitesmoke;">All About Supplements</h1>
-    <div class="flex justify-center flex-wrap gap-6">
-      <div onclick="openPopup('q1')" class="card w-72 p-6 bg-white rounded-xl shadow-md font-bold cursor-pointer">What are Supplements?</div>
-      <div onclick="openPopup('q2')" class="card w-72 p-6 bg-white rounded-xl shadow-md font-bold cursor-pointer">Why are Supplements Important?</div>
-      <div onclick="openPopup('q3')" class="card w-72 p-6 bg-white rounded-xl shadow-md font-bold cursor-pointer">Why Gym Goers Need Supplements?</div>
+<body class="bg-gray-900 bg-opacity-70 text-gray-100">
+
+  <header class="text-center py-8 px-4">
+    <h1 class="text-3xl sm:text-4xl font-bold text-white drop-shadow-lg">All About Supplements</h1>
+  </header>
+
+  <!-- QnA Section -->
+  <section class="px-4">
+    <div class="flex flex-col sm:flex-row sm:flex-wrap items-center justify-center gap-4">
+      <div onclick="openPopup('q1')" class="card w-full sm:w-72 p-5 bg-white text-gray-800 rounded-xl shadow-md font-bold cursor-pointer text-center">What are Supplements?</div>
+      <div onclick="openPopup('q2')" class="card w-full sm:w-72 p-5 bg-white text-gray-800 rounded-xl shadow-md font-bold cursor-pointer text-center">Why are Supplements Important?</div>
+      <div onclick="openPopup('q3')" class="card w-full sm:w-72 p-5 bg-white text-gray-800 rounded-xl shadow-md font-bold cursor-pointer text-center">Why Gym Goers Need Supplements?</div>
     </div>
-  </div>
+  </section>
 
-  <div class="text-center py-8">
-    <h2 class="text-3xl font-bold mb-6" style="color: whitesmoke;">Different Types of Supplements</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center">
-      <div onclick="showSupplement('Protein Powder')" class="card w-60 p-5 bg-white rounded-xl shadow-md font-bold cursor-pointer text-center">Protein Powder</div>
-      <div onclick="showSupplement('Creatine')" class="card w-60 p-5 bg-white rounded-xl shadow-md font-bold cursor-pointer text-center">Creatine</div>
-      <div onclick="showSupplement('BCAAs')" class="card w-60 p-5 bg-white rounded-xl shadow-md font-bold cursor-pointer text-center">BCAAs</div>
-      <div onclick="showSupplement('Pre-Workout')" class="card w-60 p-5 bg-white rounded-xl shadow-md font-bold cursor-pointer text-center">Pre-Workout</div>
-      <div onclick="showSupplement('Multivitamins')" class="card w-60 p-5 bg-white rounded-xl shadow-md font-bold cursor-pointer text-center">Multivitamins</div>
-      <div onclick="showSupplement('Omega-3')" class="card w-60 p-5 bg-white rounded-xl shadow-md font-bold cursor-pointer text-center">Omega-3</div>
+  <!-- Supplements Section -->
+  <section class="text-center py-10 px-4">
+    <h2 class="text-2xl sm:text-3xl font-bold mb-6 text-white drop-shadow-lg">Different Types of Supplements</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 justify-center">
+      <div onclick="showSupplement('Protein Powder')" class="card w-full p-5 bg-white text-gray-800 rounded-xl shadow-md font-bold cursor-pointer text-center">Protein Powder</div>
+      <div onclick="showSupplement('Creatine')" class="card w-full p-5 bg-white text-gray-800 rounded-xl shadow-md font-bold cursor-pointer text-center">Creatine</div>
+      <div onclick="showSupplement('BCAAs')" class="card w-full p-5 bg-white text-gray-800 rounded-xl shadow-md font-bold cursor-pointer text-center">BCAAs</div>
+      <div onclick="showSupplement('Pre-Workout')" class="card w-full p-5 bg-white text-gray-800 rounded-xl shadow-md font-bold cursor-pointer text-center">Pre-Workout</div>
+      <div onclick="showSupplement('Multivitamins')" class="card w-full p-5 bg-white text-gray-800 rounded-xl shadow-md font-bold cursor-pointer text-center">Multivitamins</div>
+      <div onclick="showSupplement('Omega-3')" class="card w-full p-5 bg-white text-gray-800 rounded-xl shadow-md font-bold cursor-pointer text-center">Omega-3</div>
     </div>
+  </section>
+
+  <!-- Button -->
+  <div class="text-center py-6">
+    <button onclick="openPopup('inputForm')" class="px-6 py-3 bg-blue-600 text-white font-bold rounded-lg shadow-lg hover:bg-blue-700 transition">Supplements You Need</button>
   </div>
 
-  <div class="text-center py-10">
-    <button onclick="openPopup('inputForm')" class="px-6 py-3 bg-blue-600 text-white font-bold rounded-lg shadow-lg hover:bg-blue-700">Supplements You Need</button>
-  </div>
-
-  <!-- Modals -->
-  <div id="modal" class="fixed inset-0 hidden bg-black bg-opacity-50 z-50 flex items-center justify-center">
-    <div class="bg-white w-11/12 md:w-2/3 p-6 rounded-lg shadow-xl modal-content relative">
+  <!-- Modal -->
+  <div id="modal" class="fixed inset-0 hidden bg-black bg-opacity-60 z-50 flex items-center justify-center px-4">
+    <div class="bg-white w-full max-w-lg p-6 rounded-lg shadow-xl modal-content relative overflow-y-auto max-h-[90vh]">
       <span class="absolute top-4 right-6 text-gray-500 text-2xl cursor-pointer" onclick="closePopup()">&times;</span>
-      <div id="modalContent" class="text-lg font-medium leading-relaxed"></div>
+      <div id="modalContent" class="text-gray-800 text-base leading-relaxed"></div>
     </div>
   </div>
 
   <script>
     const supplementData = {
       "Protein Powder": {
-        image: "https://via.placeholder.com/200x120?text=Protein+Powder",
+       
         benefits: "Supports muscle repair, growth, and overall protein intake.",
         usage: "Consume 1-2 scoops daily after workout or as per protein requirement.",
         sideEffects: "Overconsumption may cause digestive discomfort."
       },
       "Creatine": {
-        image: "https://via.placeholder.com/200x120?text=Creatine",
+       
         benefits: "Improves strength, increases muscle mass, and enhances high-intensity performance.",
         usage: "Take 3-5g daily with water, preferably post-workout.",
         sideEffects: "Mild bloating or water retention in some users."
       },
       "BCAAs": {
-        image: "https://via.placeholder.com/200x120?text=BCAAs",
+       
         benefits: "Reduces muscle soreness, supports recovery, and prevents muscle breakdown.",
         usage: "Take before or during workout for optimal effect.",
         sideEffects: "Generally safe, but excessive use may stress kidneys."
       },
       "Pre-Workout": {
-        image: "https://via.placeholder.com/200x120?text=Pre-Workout",
+       
         benefits: "Boosts energy, focus, and endurance for training sessions.",
         usage: "Consume 15–30 mins before workout.",
         sideEffects: "May cause jitters or insomnia due to caffeine."
       },
       "Multivitamins": {
-        image: "https://via.placeholder.com/200x120?text=Multivitamins",
+        
         benefits: "Supports immune health, metabolism, and fills nutritional gaps.",
         usage: "Take once daily with a meal.",
         sideEffects: "Rarely nausea or upset stomach if taken without food."
       },
       "Omega-3": {
-        image: "https://via.placeholder.com/200x120?text=Omega-3",
+        
         benefits: "Improves heart health, reduces inflammation, and supports joint and brain health.",
         usage: "1–2 softgels daily with meals.",
         sideEffects: "May cause fishy burps or mild indigestion."
@@ -116,7 +125,7 @@
       const data = supplementData[name];
       const content = `
         <h2 class='text-xl font-bold mb-2'>${name}</h2>
-        <img src="${data.image}" alt="${name}" class="my-3 rounded-md">
+        <img src="${data.image}" alt="${name}" class="my-3 rounded-md mx-auto">
         <p><b>Benefits:</b> ${data.benefits}</p>
         <p><b>Usage:</b> ${data.usage}</p>
         <p><b>Side Effects:</b> ${data.sideEffects}</p>
@@ -132,7 +141,7 @@
     function formContent() {
       return `
         <h2 class='text-xl font-bold mb-4'>Supplements You Need</h2>
-        <form id="supplementForm" class="space-y-4">
+        <form id="supplementForm" class="space-y-4 text-left">
           <label class="block font-bold">What is your primary fitness goal?
             <select id="goal" class="block w-full mt-1 p-2 border rounded">
               <option value="build">Build Muscle</option>
@@ -170,7 +179,7 @@
             </select>
           </label>
 
-          <button type="button" onclick="generatePlan()" class="bg-blue-600 text-white px-4 py-2 rounded font-bold">Generate Plan</button>
+          <button type="button" onclick="generatePlan()" class="bg-blue-600 text-white px-4 py-2 rounded font-bold w-full">Generate Plan</button>
         </form>`;
     }
 
@@ -181,7 +190,7 @@
       const age = document.getElementById('age').value;
       const restrictions = document.getElementById('restrictions').value.trim();
 
-      let plan = "<h2 class='text-xl font-bold mb-2'>Your Personalized Supplement Plan</h2><ul class='list-disc ml-5'>";
+      let plan = "<h2 class='text-xl font-bold mb-2'>Your Personalized Supplement Plan</h2><ul class='list-disc ml-5 space-y-1'>";
 
       if (goal === "build") plan += "<li>Whey Protein</li><li>Creatine Monohydrate</li>";
       if (goal === "lose") plan += "<li>BCAAs</li><li>Fat Burner (if no health conditions)</li>";
