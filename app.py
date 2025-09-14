@@ -370,7 +370,7 @@ def chatbot():
         if not api_key:
             return jsonify({"error": "API key not found"})
         genai.configure(api_key=api_key)
-        model = genai.GenerativeModel("gemini-1.5-flash")
+        model = genai.GenerativeModel("gemini-2.5-flash")
 
         try:
             if imageInput:
