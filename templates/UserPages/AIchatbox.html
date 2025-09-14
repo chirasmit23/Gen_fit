@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AI Chatbot & Food Aanalyzer</title>
+  <title>AI Chatbot & Food Analyzer</title>
   <style>
     :root {
       --primary: #007bff;
@@ -13,6 +12,11 @@
       --bg: #f0f2f5;
       --text: #333;
     }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: 'Inter', Arial, sans-serif;
       background: var(--bg);
@@ -26,10 +30,10 @@
     .chat-container {
       width: 100%;
       max-width: 500px;
-      background: #fff;
+      height: 100vh;
       display: flex;
       flex-direction: column;
-      height: 100vh;
+      background: #fff;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
@@ -38,7 +42,7 @@
       background: var(--primary);
       color: #fff;
       text-align: center;
-      padding: 15px;
+      padding: 12px;
       font-size: 18px;
       font-weight: bold;
       position: sticky;
@@ -50,18 +54,18 @@
     .chat-box {
       flex-grow: 1;
       overflow-y: auto;
-      padding: 15px;
+      padding: 12px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
     .message {
       max-width: 80%;
-      padding: 10px 14px;
+      padding: 8px 12px;
       border-radius: 18px;
       word-wrap: break-word;
-      font-size: 15px;
+      font-size: 14px;
       line-height: 1.4;
     }
 
@@ -81,15 +85,17 @@
     .input-area {
       display: flex;
       align-items: center;
-      padding: 10px;
+      padding: 8px;
       border-top: 1px solid #ddd;
       background: #fff;
+      flex-shrink: 0;
     }
 
     .input-area label {
       cursor: pointer;
-      font-size: 22px;
-      margin-right: 10px;
+      font-size: 20px;
+      margin-right: 8px;
+      flex-shrink: 0;
     }
 
     .input-area input[type="file"] {
@@ -98,22 +104,23 @@
 
     .input-area input[type="text"] {
       flex-grow: 1;
-      padding: 10px 12px;
-      font-size: 15px;
+      padding: 8px 10px;
+      font-size: 14px;
       border: 1px solid #ccc;
       border-radius: 20px;
       outline: none;
     }
 
     .input-area button {
-      margin-left: 10px;
+      margin-left: 8px;
       background: var(--primary);
       border: none;
       color: white;
-      padding: 10px 16px;
+      padding: 8px 14px;
       border-radius: 20px;
       cursor: pointer;
-      font-size: 15px;
+      font-size: 14px;
+      flex-shrink: 0;
     }
 
     .input-area button:hover {
@@ -124,11 +131,22 @@
     #imagePreview {
       font-size: 12px;
       color: gray;
-      margin-left: 8px;
+      margin-left: 6px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 100px;
+      max-width: 80px;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 400px) {
+      .chat-header { font-size: 16px; padding: 10px; }
+      .message { font-size: 13px; max-width: 85%; }
+      .input-area input[type="text"] { font-size: 13px; padding: 6px 8px; }
+      .input-area button { font-size: 13px; padding: 6px 10px; }
+      .input-area label { font-size: 18px; }
+      #imagePreview { font-size: 11px; max-width: 70px; }
+      .chat-box { padding: 8px; gap: 8px; }
     }
   </style>
 </head>
@@ -174,15 +192,12 @@
         userMessage.appendChild(textElement);
       }
 
-
       chatBox.appendChild(userMessage);
       chatBox.scrollTop = chatBox.scrollHeight;
 
       const formData = new FormData();
       formData.append("msg", message);
-      if (file) {
-        formData.append("image", file);
-      }
+      if (file) formData.append("image", file);
 
       fetch("/chatbot", {
         method: "POST",
@@ -202,6 +217,7 @@
         errorReply.innerText = "AI: Error occurred. Try again.";
         chatBox.appendChild(errorReply);
       });
+
       messageInput.value = "";
       imageInput.value = "";
       imagePreview.textContent = "No image selected";
