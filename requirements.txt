@@ -11,4 +11,4 @@ gevent
 gevent-websocket
 gunicorn
 werkzeug
-PIL
+Pillow
