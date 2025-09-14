@@ -53,8 +53,10 @@
     const sender_role = "user";
 
    const socket = io({
-  transports: ["polling"]  
+  transports: ["websocket", "polling"],
+  withCredentials: true
 });
+
 
     const msgBox = document.getElementById("messages");
 
