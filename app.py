@@ -360,37 +360,38 @@ def chatbot():
     if request.method == "POST":
         UPLOAD_FOLDER = "uploads"
         os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
         textInput = request.form.get("msg")
         imageInput = request.files.get("image")
+
         load_dotenv()
         api_key = os.getenv("My_gemini_api_key")
 
-
-
         if not api_key:
             return jsonify({"error": "API key not found"})
-        client = genai.Client(api_key=api_key)
+        genai.configure(api_key=api_key)
+        model = genai.GenerativeModel("gemini-1.5-flash")
 
-        if imageInput:
-            image_path = os.path.join(UPLOAD_FOLDER, imageInput.filename)
-            imageInput.save(image_path)
-            my_file = client.files.upload(file=image_path)
+        try:
+            if imageInput:
+                image_path = os.path.join(UPLOAD_FOLDER, imageInput.filename)
+                imageInput.save(image_path)
 
-            response = client.models.generate_content(
-                model="gemini-2.5-flash",
-                contents=[my_file, f"{textInput}"]
-            )
-        else:
-            response = client.models.generate_content(
-                model="gemini-2.5-flash",
-                contents=[f"{textInput}"]
-            )
-        
-        if response.text:
-            return jsonify({"reply": response.text})
-        else:
-            return jsonify({"reply": "No response from AI."})
+                with open(image_path, "rb") as f:
+                    response = model.generate_content([f, textInput or "Analyze this image"])
+            else:
+                response = model.generate_content([textInput or "Hello!"])
+
+            if hasattr(response, "text") and response.text:
+                return jsonify({"reply": response.text})
+            else:
+                return jsonify({"reply": "No response from AI."})
+
+        except Exception as e:
+            return jsonify({"reply": f"Error: {str(e)}"})
+
     return render_template("UserPages/AIchatbox.html")
+
 workouts.register_workout_routes(app)
 if __name__ == "__main__":
     
