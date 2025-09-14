@@ -16,7 +16,7 @@ CORS(app)
 app.secret_key = 'supersecretkey'
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///fitness.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-socketio = SocketIO(app, cors_allowed_origins="*")
+socketio = SocketIO(app, cors_allowed_origins="*", manage_session=False)
 db=SQLAlchemy(app)
 migrate = Migrate(app, db)
 import workouts
