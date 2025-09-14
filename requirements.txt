@@ -10,3 +10,5 @@ eventlet
 gevent
 gevent-websocket
 gunicorn
+werkzeug.utils
+PIL
