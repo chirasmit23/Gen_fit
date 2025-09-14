@@ -16,7 +16,7 @@ CORS(app)
 app.secret_key = 'supersecretkey'
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///fitness.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-socketio = SocketIO(app, cors_allowed_origins="*", manage_session=False)
+socketio = SocketIO(app, cors_allowed_origins="*", manage_session=False,async_mode="eventlet")
 db=SQLAlchemy(app)
 migrate = Migrate(app, db)
 import workouts
@@ -447,9 +447,8 @@ def chatbot():
 
 workouts.register_workout_routes(app)
 if __name__ == "__main__":
-    import eventlet
-    import eventlet.wsgi
-    
     with app.app_context():
         db.create_all()
-    socketio.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+    import eventlet
+    import eventlet.wsgi
+    eventlet.wsgi.server(eventlet.listen(("0.0.0.0", 5000)), app)
