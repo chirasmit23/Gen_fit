@@ -1,3 +1,7 @@
+
+
+https://github.com/user-attachments/assets/75e7f0a3-2d8d-487b-b0fa-d5c52d03dd90
+
 # 🏋️ GenFit – AI Powered Personalized Fitness Platform
 
 🔗 Live Demo: [https://gen-fit.onrender.com]
