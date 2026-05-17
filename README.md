@@ -65,7 +65,8 @@ Unlike generic fitness apps, GenFit focuses on:
 
 ### Database
 - SQL
-
+## 👨‍💻 Team Innovision
+- Srijan Biswas
 ---
 ## 🌟 Future Improvements
 
